@@ -3,7 +3,7 @@ TARGET = sum
 $(TARGET).objdump: $(TARGET)
 	riscv64-unknown-elf-objdump -S -D $(TARGET) > $(TARGET).objdump
 
-$(TARGET): $(TARGET).c Makefile
+$(TARGET): $(TARGET).c Makefile						#Makefiel include for compliation process
 	riscv64-unknown-elf-gcc -o $(TARGET) -gdwarf-2 -O\
 	  -march=rv64gc -mabi=lp64d -mcmodel=medany \
 	  -nostdlib -static -lm -fno-tree-loop-distribute-patterns \
