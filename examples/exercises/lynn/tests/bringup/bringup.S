@@ -7,6 +7,7 @@
 .extern or_test
 .extern and_test
 .extern sub_test
+.extern shifts_test
 
     .section .text.init
     .globl main
@@ -14,6 +15,7 @@
     .globl return_or_test
     .globl return_and_test
     .globl return_sub_test
+    .globl return_shifts_test
     .type  main, @function
 
 main:
@@ -29,4 +31,7 @@ return_and_test:
     j sub_test
 
 return_sub_test:
+    j shifts_test
+
+return_shifts_test:
     j pass
