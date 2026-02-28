@@ -58,8 +58,17 @@ module testbench;
     #1;
 
     if (~reset) begin
-
-      //$display("PC: %h \t Instr: %h", PC, Instr);
+      //$display("PC=%h Instr=%h ImmSrc=%b ImmExt=%h ALUSrc=%b PCSrc=%b IEUAdr=%h",
+          //PC, Instr, ImmSrc, ImmExt, ALUSrc, PCSrc, IEUAdr);
+      $display("PC: %h \t Instr: %h", PC, Instr);
+      //$display("PC=%h Instr=%h", dut.PC, dut.Instr);
+      //$display("PC=%h Instr=%h | SrcA=%h SrcB=%h ImmExt=%h ALURes=%h",
+        // PC,
+        // Instr,
+        // dut.ieu.dp.SrcA,
+        // dut.ieu.dp.SrcB,
+        // dut.ieu.dp.ImmExt,
+        // dut.ieu.dp.ALUResult);
 
       // $display("MemEn: %b",
       //         MemEn

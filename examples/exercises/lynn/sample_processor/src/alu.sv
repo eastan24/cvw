@@ -31,9 +31,19 @@ module alu(
         case (ALUFunct)
             3'b000: ALUResult = Sum; // add or sub
             3'b010: ALUResult = SLT; // slt
+            3'b011: ALUResult = {31'b0, (SrcA < SrcB)}; // SLTU
+            3'b100: ALUResult = SrcA ^ SrcB; // xor
             3'b110: ALUResult = SrcA | SrcB; // or
             3'b111: ALUResult = SrcA & SrcB; // and
-            default: ALUResult = 'x;
+            3'b001: ALUResult = SrcA << SrcB[4:0]; // SLL
+            3'b101: begin
+                if (Sub) // use Sub bit to detect SRA
+                    ALUResult = $signed(SrcA) >>> SrcB[4:0]; // SRA
+                else
+                    ALUResult = SrcA >> SrcB[4:0]; // SRL
+            end
+
+            default: ALUResult = 32'b0;
         endcase
     end
 endmodule

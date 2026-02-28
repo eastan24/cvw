@@ -7,35 +7,35 @@
 
 slti_test:
 
-t1:
+slti1:
     li   t0, 5
     slti t1, t0, 10
     li   t2, 1
-    beq  t1, t2, t2
+    beq  t1, t2, slti2
     j F1
 
-t2:         # equal => 0
+slti2:
     li   t0, 5
     slti t1, t0, 5
     li   t2, 0
-    beq  t1, t2, t3
+    beq  t1, t2, slti3
     j F2
 
-t3:         # greater => 0
+slti3:
     li   t0, 7
     slti t1, t0, 5
     li   t2, 0
-    beq  t1, t2, t4
+    beq  t1, t2, slti4
     j F3
 
-t4:         # negative signed: -1 < 0 => 1
+slti4:
     li   t0, -1
     slti t1, t0, 0
     li   t2, 1
-    beq  t1, t2, t5
+    beq  t1, t2, slti5
     j F4
 
-t5:         # 0 < -1 => 0
+slti5:
     li   t0, 0
     slti t1, t0, -1
     li   t2, 0

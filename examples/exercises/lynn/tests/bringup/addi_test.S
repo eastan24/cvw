@@ -7,34 +7,34 @@
 
 addi_test:
 
-t1:
+addi1:
     li   t0, 5
     addi t0, t0, 7
     li   t1, 12
-    beq  t0, t1, t2
+    beq  t0, t1, addi2
     j F1
 
-t2:
+addi2:
     li   t0, 20
     addi t0, t0, -4
     li   t1, 16
-    beq  t0, t1, t3
+    beq  t0, t1, addi3
     j F2
 
-t3:
+addi3:
     li   t0, 0
     addi t0, t0, -1
     li   t1, -1
-    beq  t0, t1, t4
+    beq  t0, t1, addi4
     j F3
 
-t4:         # imm max
+addi4:
     li   t0, 2047
     li   t1, 2047
-    beq  t0, t1, t5
+    beq  t0, t1, addi5
     j F4
 
-t5:         # imm min
+addi5:
     li   t0, -2048
     li   t1, -2048
     beq  t0, t1, pass

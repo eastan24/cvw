@@ -7,37 +7,37 @@
 
 slt_test:
 
-t1:
+slt1:
     li  t0, 3
     li  t1, 5
     slt t2, t0, t1
     li  t3, 1
-    beq t2, t3, t2
+    beq t2, t3, slt2
     j F1
 
-t2:
+slt2:
     slt t2, t1, t0
     li  t3, 0
-    beq t2, t3, t3
+    beq t2, t3, slt3
     j F2
 
-t3:         # equal
+slt3:
     li  t0, 9
     li  t1, 9
     slt t2, t0, t1
     li  t3, 0
-    beq t2, t3, t4
+    beq t2, t3, slt4
     j F3
 
-t4:         # negative signed
+slt4:
     li  t0, -1
     li  t1, 0
     slt t2, t0, t1
     li  t3, 1
-    beq t2, t3, t5
+    beq t2, t3, slt5
     j F4
 
-t5:         # 0 < -1 false (signed)
+slt5:
     slt t2, t1, t0
     li  t3, 0
     beq t2, t3, pass

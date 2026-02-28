@@ -7,34 +7,34 @@
 
 xori_test:
 
-t1:
+xori1:
     li   t0, 0x55
     xori t1, t0, 0xFF
     li   t2, 0xAA
-    beq  t1, t2, t2
+    beq  t1, t2, xori2
     j F1
 
-t2:         # x ^ 0 = x
+xori2:
     li   t0, 0x7B
     xori t1, t0, 0
-    beq  t1, t0, t3
+    beq  t1, t0, xori3
     j F2
 
-t3:         # x ^ 0xFF flips low 8 bits
+xori3:
     li   t0, 0x00
     xori t1, t0, 0xFF
     li   t2, 0xFF
-    beq  t1, t2, t4
+    beq  t1, t2, xori4
     j F3
 
-t4:         # 0xF0 ^ 0x0F = 0xFF
+xori4:
     li   t0, 0xF0
     xori t1, t0, 0x0F
     li   t2, 0xFF
-    beq  t1, t2, t5
+    beq  t1, t2, xori5
     j F4
 
-t5:         # (x ^ k) ^ k = x (two xori)
+xori5:
     li   t0, 0x5A
     xori t1, t0, 0x3C
     xori t2, t1, 0x3C

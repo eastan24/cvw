@@ -7,34 +7,34 @@
 
 xor_test:
 
-t1:         # 0x55 ^ 0xAA = 0xFF
+xor1:
     li  t0, 0x55
     li  t1, 0xAA
     xor t2, t0, t1
     li  t3, 0xFF
-    beq t2, t3, t2
+    beq t2, t3, xor2
     j F1
 
-t2:         # x ^ x = 0
+xor2:
     li  t0, 0x7F
     xor t1, t0, t0
     li  t2, 0
-    beq t1, t2, t3
+    beq t1, t2, xor3
     j F2
 
-t3:         # x ^ 0 = x
+xor3:
     li  t0, 0x33
     xor t1, t0, x0
-    beq t1, t0, t4
+    beq t1, t0, xor4
     j F3
 
-t4:         # 0 ^ x = x
+xor4:
     li  t0, 0x66
     xor t1, x0, t0
-    beq t1, t0, t5
+    beq t1, t0, xor5
     j F4
 
-t5:         # symmetry: a^b == b^a
+xor5:
     li  t0, 0x12
     li  t1, 0x34
     xor t2, t0, t1

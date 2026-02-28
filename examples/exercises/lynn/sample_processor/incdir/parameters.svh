@@ -14,6 +14,6 @@
         `define XLEN 64
     `endif
 
-    //`define DEBUG
+    `define DEBUG
 
 `endif

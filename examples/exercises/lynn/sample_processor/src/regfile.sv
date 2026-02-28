@@ -16,9 +16,10 @@ module regfile(
     // read two ports combinationally (A1/RD1, A2/RD2)
     // write third port on rising edge of clock (A3/WD3/WE3)
     // register 0 hardwired to 0
-    always_ff @(posedge clk)
-        if (WE3) rf[A3] <= WD3;
+    always_ff @(posedge clk) begin
+        if (WE3 && (A3 != 5'd0)) rf[A3] <= WD3;
+    end
 
-    assign RD1 = (A1 != 0) ? rf[A1] : 0;
-    assign RD2 = (A2 != 0) ? rf[A2] : 0;
+    assign RD1 = (A1 != 5'd0) ? rf[A1] : 32'd0;
+    assign RD2 = (A2 != 5'd0) ? rf[A2] : 32'd0;
 endmodule
