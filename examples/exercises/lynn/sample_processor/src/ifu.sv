@@ -29,5 +29,9 @@ module ifu(
     end
 
     adder pcadd4(PC, 32'd4, PCPlus4);
-    mux2 #(32) pcmux(PCPlus4, IEUAdr, PCSrc, PCNext);
+
+    logic [31:0] IEUAdrAligned;
+    assign IEUAdrAligned = {IEUAdr[31:1], 1'b0};
+    mux2 #(32) pcmux(PCPlus4, IEUAdrAligned, PCSrc, PCNext);
+
 endmodule

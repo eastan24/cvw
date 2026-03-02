@@ -87,5 +87,15 @@ module datapath(
 
     mux2 #(32) resultmux(IEUResult, LoadData, ResultSrc, Result);
 
-    assign WriteData = R2;
+    always_comb begin
+        case (Funct3)
+            3'b000: begin // SB - replicate byte to all lanes
+                WriteData = {R2[7:0], R2[7:0], R2[7:0], R2[7:0]};
+            end
+            3'b001: begin // SH - replicate halfword to both lanes
+                WriteData = {R2[15:0], R2[15:0]};
+            end
+            default: WriteData = R2; // SW
+        endcase
+    end
 endmodule
