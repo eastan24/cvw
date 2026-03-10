@@ -13,13 +13,17 @@ module controller(
         input   logic         Funct7b5,
         output  logic         ALUResultSrc,
         output  logic         ResultSrc,
+        output  logic         CSRSrc,
         output  logic         PCSrc,
         output  logic         RegWrite,
         output  logic [1:0]   ALUSrc,
         output  logic [2:0]   ImmSrc,
         output  logic [1:0]   ALUControl,
         output  logic         MemEn,
-        output  logic         MemWrite
+        output  logic         MemWrite,
+        output  logic         IsAdd,
+        output  logic         IsBranch,
+        output  logic         BranchTaken
     `ifdef DEBUG
         , input   logic [31:0]  insn_debug
     `endif
@@ -42,12 +46,13 @@ module controller(
             7'b1100111: controls = 13'b1_000_01_0_1_0_0_0_1_0; // jalr
             7'b0110111: controls = 13'b1_011_01_0_0_0_0_0_0_0; // lui
             7'b0010111: controls = 13'b1_011_11_0_0_0_0_0_0_0; // auipc
+            7'b1110011: controls = 13'b1_000_00_0_0_0_0_0_0_0; // csrrs
 
             default: begin
                 `ifdef DEBUG
                     controls = 13'b0; // non-implemented instruction
                     if ((insn_debug !== 'x)) begin
-                        $display("Instruction not implemented: %h", insn_debug);
+                        //$display("Instruction not implemented: %h", insn_debug);
                         $finish(-1);
                     end
                 `else
@@ -58,6 +63,9 @@ module controller(
 
     assign {RegWrite, ImmSrc, ALUSrc, ALUOp, ALUResultSrc, MemWrite,
         ResultSrc, Branch, Jump, MemEn} = controls;
+
+    // CSRSrc: select CSR result into register file
+    assign CSRSrc = (Op == 7'b1110011);
 
     // ALU Control Logic
     assign Sub = ALUOp & (
@@ -87,4 +95,11 @@ module controller(
     end
 
     assign PCSrc = TakeBranch | Jump;
+
+    // HPM counter signals
+    assign IsAdd = (Op == 7'b0110011 && Funct3 == 3'b000) ||  // add
+                   (Op == 7'b0010011 && Funct3 == 3'b000);     // addi
+    assign IsBranch = Branch;
+    assign BranchTaken = TakeBranch;
+
 endmodule

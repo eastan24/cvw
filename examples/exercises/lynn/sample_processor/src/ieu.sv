@@ -15,12 +15,13 @@ module ieu(
         output  logic           MemEn
     );
 
-    logic RegWrite, Jump, ALUResultSrc, ResultSrc;
+    logic RegWrite, Jump, ALUResultSrc, ResultSrc, CSRSrc;
     logic Eq, Lt, Ltu;
     logic [1:0] ALUSrc;
     logic [2:0] ImmSrc;
     logic [1:0] ALUControl;
     logic MemWrite;
+    logic IsAdd, IsBranch, BranchTaken;
 
     controller c(
         .Op(Instr[6:0]),
@@ -31,13 +32,17 @@ module ieu(
         .Funct7b5(Instr[30]),
         .ALUResultSrc(ALUResultSrc),
         .ResultSrc(ResultSrc),
+        .CSRSrc(CSRSrc),
         .PCSrc(PCSrc),
         .RegWrite(RegWrite),
         .ALUSrc(ALUSrc),
         .ImmSrc(ImmSrc),
         .ALUControl(ALUControl),
         .MemEn(MemEn),
-        .MemWrite(MemWrite)
+        .MemWrite(MemWrite),
+        .IsAdd(IsAdd),
+        .IsBranch(IsBranch),
+        .BranchTaken(BranchTaken)
     `ifdef DEBUG
         , .insn_debug(Instr)
     `endif
@@ -49,6 +54,7 @@ module ieu(
         .Funct3(Instr[14:12]),
         .ALUResultSrc(ALUResultSrc),
         .ResultSrc(ResultSrc),
+        .CSRSrc(CSRSrc),
         .ALUSrc(ALUSrc),
         .RegWrite(RegWrite),
         .ImmSrc(ImmSrc),
@@ -61,7 +67,10 @@ module ieu(
         .Instr(Instr),
         .IEUAdr(IEUAdr),
         .WriteData(WriteData),
-        .ReadData(ReadData)
+        .ReadData(ReadData),
+        .IsAdd(IsAdd),
+        .IsBranch(IsBranch),
+        .BranchTaken(BranchTaken)
     );
 
     logic [3:0] StoreByteEn;

@@ -60,7 +60,7 @@ module testbench;
     if (~reset) begin
       //$display("PC=%h Instr=%h ImmSrc=%b ImmExt=%h ALUSrc=%b PCSrc=%b IEUAdr=%h",
           //PC, Instr, ImmSrc, ImmExt, ALUSrc, PCSrc, IEUAdr);
-      $display("PC: %h \t Instr: %h", PC, Instr);
+      //$display("PC: %h \t Instr: %h", PC, Instr);
       //$display("PC=%h Instr=%h", dut.PC, dut.Instr);
       //$display("PC=%h Instr=%h | SrcA=%h SrcB=%h ImmExt=%h ALURes=%h",
         // PC,
